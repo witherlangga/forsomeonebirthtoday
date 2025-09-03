@@ -8,10 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector('.container');
 
     if (isTodayTarget) {
-        // Tampilkan halaman
         container.style.display = 'block';
 
-        // Trigger SweetAlert untuk musik hanya pada 2 September
         window.addEventListener('load', () => {
             Swal.fire({
                 title: 'Do you want to play music in the background?',
@@ -31,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     } else {
-        // Sembunyikan halaman & tampilkan countdown
         container.style.display = 'none';
 
         const countdownContainer = document.createElement('div');
@@ -48,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         const msg = document.createElement('h2');
-        msg.textContent = "Tunggu yaa...";
+        msg.textContent = "wait yaaa...";
 
         const countdown = document.createElement('div');
         countdown.id = "countdown";
@@ -59,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
         countdownContainer.appendChild(countdown);
         document.body.appendChild(countdownContainer);
 
-        // Update countdown setiap detik
         function updateCountdown() {
             const now = new Date();
             let distance = targetDate - now;
@@ -83,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Animation Timeline
 const animationTimeline = () => {
     const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
     const hbd = document.getElementsByClassName("wish-hbd")[0];
@@ -258,9 +253,9 @@ const animationTimeline = () => {
             rotation: 90,
         }, "+=1");
 
-    // Restart on click
     const replyBtn = document.getElementById("replay");
     replyBtn.addEventListener("click", () => {
         tl.restart();
     });
 }
+
