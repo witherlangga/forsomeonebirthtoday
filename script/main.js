@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 confirmButtonText: 'Yes',
                 cancelButtonText: 'No',
             }).then((result) => {
+                // Musik hanya dimainkan jika pengguna memilih "Yes"
                 if (result.isConfirmed) {
                     document.querySelector('.song').play();
-                    animationTimeline();
-                } else {
-                    animationTimeline();
                 }
+                // Animasi tetap berjalan apapun pilihan pengguna
+                animationTimeline();
             });
         });
     } else {
