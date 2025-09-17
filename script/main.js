@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const today = new Date();
     const currentYear = today.getFullYear();
 
-    const targetDate = new Date(`${currentYear}-09-02T00:00:00`);
+    const targetDate = new Date(`${currentYear}-09-17T00:00:00`);
     const isTodayTarget = today.toDateString() === targetDate.toDateString();
 
     const container = document.querySelector('.container');
