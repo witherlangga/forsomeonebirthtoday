@@ -1,83 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-
-    const targetDate = new Date(`${currentYear}-09-17T00:00:00`);
-    const isTodayTarget = today.toDateString() === targetDate.toDateString();
-
     const container = document.querySelector('.container');
+    container.style.display = 'block';
 
-    if (isTodayTarget) {
-        container.style.display = 'block';
-
-        window.addEventListener('load', () => {
-            Swal.fire({
-                title: 'Do you want to play music in the background?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-            }).then((result) => {
-                // Musik hanya dimainkan jika pengguna memilih "Yes"
-                if (result.isConfirmed) {
-                    document.querySelector('.song').play();
+    window.addEventListener('load', () => {
+        Swal.fire({
+            title: 'Do you want to play music in the background?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const song = document.querySelector('.song');
+                if (song) {
+                    song.play().catch(err => {
+                        console.log("Autoplay dicegah:", err);
+                    });
                 }
-                // Animasi tetap berjalan apapun pilihan pengguna
-                animationTimeline();
-            });
-        });
-    } else {
-        container.style.display = 'none';
-
-        const countdownContainer = document.createElement('div');
-        countdownContainer.style.cssText = `
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            background-color: #fff;
-            color: #333;
-            text-align: center;
-        `;
-
-        const msg = document.createElement('h2');
-        msg.textContent = "wait yaaa...";
-
-        const countdown = document.createElement('div');
-        countdown.id = "countdown";
-        countdown.style.fontSize = '2rem';
-        countdown.style.marginTop = '20px';
-
-        countdownContainer.appendChild(msg);
-        countdownContainer.appendChild(countdown);
-        document.body.appendChild(countdownContainer);
-
-        function updateCountdown() {
-            const now = new Date();
-            let distance = targetDate - now;
-
-            if (distance < 0) {
-                const nextYear = currentYear + 1;
-                targetDate.setFullYear(nextYear);
-                distance = targetDate - now;
+            } else {
+                
+                const song = document.querySelector('.song');
+                if (song) song.pause();
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((distance / (1000 * 60)) % 60);
-            const seconds = Math.floor((distance / 1000) % 60);
-
-            countdown.textContent = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    }
+            animationTimeline();
+        });
+    });
 });
+
 
 const animationTimeline = () => {
     const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
